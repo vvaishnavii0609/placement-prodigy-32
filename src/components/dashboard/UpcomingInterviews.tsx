@@ -1,9 +1,16 @@
 
 import React from 'react';
-import { Calendar, Clock, ArrowRight } from 'lucide-react';
+import { Calendar, Clock, ArrowRight, Briefcase } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { useNavigate } from 'react-router-dom';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 
 const interviews = [
   {
@@ -35,6 +42,21 @@ const interviews = [
   },
 ];
 
+const jobOptions = [
+  "Software Engineer",
+  "Data Scientist",
+  "Product Manager",
+  "UX Designer",
+  "Marketing Manager",
+  "Sales Representative",
+  "Project Manager",
+  "Business Analyst",
+  "DevOps Engineer",
+  "Financial Analyst",
+  "HR Manager",
+  "Customer Support Specialist"
+];
+
 const formatDate = (dateStr: string) => {
   const date = new Date(dateStr);
   return date.toLocaleDateString('en-US', { 
@@ -45,6 +67,12 @@ const formatDate = (dateStr: string) => {
 };
 
 const UpcomingInterviews: React.FC = () => {
+  const navigate = useNavigate();
+
+  const handleJobSelect = (job: string) => {
+    navigate(`/interview/setup/${encodeURIComponent(job)}`);
+  };
+
   return (
     <Card className="dashboard-card">
       <CardHeader>
@@ -57,6 +85,34 @@ const UpcomingInterviews: React.FC = () => {
         </CardDescription>
       </CardHeader>
       <CardContent>
+        <div className="mb-6">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button 
+                variant="outline" 
+                className="w-full flex items-center justify-between"
+              >
+                <div className="flex items-center gap-2">
+                  <Briefcase className="h-4 w-4" />
+                  <span>Select job role for practice</span>
+                </div>
+                <ArrowRight className="h-4 w-4" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-[300px] max-h-[400px] overflow-y-auto">
+              {jobOptions.map((job) => (
+                <DropdownMenuItem 
+                  key={job} 
+                  onClick={() => handleJobSelect(job)}
+                  className="cursor-pointer"
+                >
+                  {job}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
+
         {interviews.length > 0 ? (
           <div className="space-y-4">
             {interviews.map((interview) => (

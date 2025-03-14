@@ -14,6 +14,9 @@ import PersonalizedSchedulePage from "./pages/dashboard/PersonalizedSchedulePage
 import RemindersPage from "./pages/dashboard/RemindersPage";
 import BodyPosturePage from "./pages/dashboard/communication/BodyPosturePage";
 import SpeechDetectionPage from "./pages/dashboard/communication/SpeechDetectionPage";
+import InterviewSetupPage from "./pages/interview/InterviewSetupPage";
+import InterviewSessionPage from "./pages/interview/InterviewSessionPage";
+import InterviewResultsPage from "./pages/interview/InterviewResultsPage";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +36,12 @@ const App = () => (
           <Route path="/dashboard/reminders" element={<RemindersPage />} />
           <Route path="/dashboard/communication/body-posture" element={<BodyPosturePage />} />
           <Route path="/dashboard/communication/speech" element={<SpeechDetectionPage />} />
+          
+          {/* New Interview Routes */}
+          <Route path="/interview/setup/:jobRole" element={<InterviewSetupPage />} />
+          <Route path="/interview/session/:jobRole/:interviewType/:duration" element={<InterviewSessionPage />} />
+          <Route path="/interview/results/:jobRole" element={<InterviewResultsPage />} />
+          
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
