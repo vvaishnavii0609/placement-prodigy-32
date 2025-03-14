@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Bell, MessageSquare, Video, BarChart3 } from 'lucide-react';
+import { Bell, MessageSquare, Video, BarChart3, ChevronDown } from 'lucide-react';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -40,14 +40,26 @@ const Header: React.FC<HeaderProps> = ({ userName }) => {
         </div>
 
         <div className="flex items-center gap-4">
-          <Button
-            variant="outline"
-            className="text-prepai-600 hover:text-prepai-700 hover:bg-prepai-50"
-            onClick={() => navigate('/communication')}
-          >
-            <Video className="h-4 w-4 mr-2" />
-            Communication Skills
-          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="outline"
+                className="text-prepai-600 hover:text-prepai-700 hover:bg-prepai-50"
+              >
+                <Video className="h-4 w-4 mr-2" />
+                Communication Skills
+                <ChevronDown className="h-4 w-4 ml-2" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-56">
+              <DropdownMenuItem onClick={() => navigate('/dashboard/communication/body-posture')}>
+                Body Posture Detection
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => navigate('/dashboard/communication/speech')}>
+                Speech Detection
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
           
           <Button
             variant="outline"

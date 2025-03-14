@@ -12,6 +12,8 @@ import DashboardPage from "./pages/dashboard/DashboardPage";
 import PastPerformancePage from "./pages/dashboard/PastPerformancePage";
 import PersonalizedSchedulePage from "./pages/dashboard/PersonalizedSchedulePage";
 import RemindersPage from "./pages/dashboard/RemindersPage";
+import BodyPosturePage from "./pages/dashboard/communication/BodyPosturePage";
+import SpeechDetectionPage from "./pages/dashboard/communication/SpeechDetectionPage";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +31,8 @@ const App = () => (
           <Route path="/dashboard/performance" element={<PastPerformancePage />} />
           <Route path="/dashboard/schedule" element={<PersonalizedSchedulePage />} />
           <Route path="/dashboard/reminders" element={<RemindersPage />} />
+          <Route path="/dashboard/communication/body-posture" element={<BodyPosturePage />} />
+          <Route path="/dashboard/communication/speech" element={<SpeechDetectionPage />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
