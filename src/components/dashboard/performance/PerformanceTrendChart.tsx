@@ -2,7 +2,7 @@
 import React from 'react';
 import { Line } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
+import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegendContent } from '@/components/ui/chart';
 import { LineChart, CartesianGrid, XAxis, YAxis, Legend } from 'recharts';
 import { motion } from 'framer-motion';
 
