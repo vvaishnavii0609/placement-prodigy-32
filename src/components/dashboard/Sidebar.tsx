@@ -15,6 +15,7 @@ import {
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { motion } from 'framer-motion';
 
 interface SidebarLinkProps {
   to: string;
@@ -26,20 +27,22 @@ interface SidebarLinkProps {
 
 const SidebarLink: React.FC<SidebarLinkProps> = ({ to, icon, label, isActive, onClick }) => {
   return (
-    <Link
-      to={to}
-      className={cn(
-        'flex items-center gap-3 px-3 py-2 rounded-md transition-colors',
-        isActive 
-          ? 'bg-prepai-100 text-prepai-700' 
-          : 'text-muted-foreground hover:bg-muted hover:text-foreground'
-      )}
-      onClick={onClick}
-    >
-      {icon}
-      <span>{label}</span>
-      {isActive && <ChevronRight className="ml-auto h-4 w-4" />}
-    </Link>
+    <motion.div whileHover={{ x: 5 }} whileTap={{ scale: 0.98 }}>
+      <Link
+        to={to}
+        className={cn(
+          'flex items-center gap-3 px-3 py-2 rounded-md transition-colors',
+          isActive 
+            ? 'bg-prepai-100 text-prepai-700' 
+            : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+        )}
+        onClick={onClick}
+      >
+        {icon}
+        <span>{label}</span>
+        {isActive && <ChevronRight className="ml-auto h-4 w-4" />}
+      </Link>
+    </motion.div>
   );
 };
 
@@ -64,14 +67,23 @@ const Sidebar: React.FC<SidebarProps> = ({ onMobileClose }) => {
   ];
   
   return (
-    <div className="flex flex-col h-full border-r bg-card">
+    <motion.div 
+      className="flex flex-col h-full border-r bg-card"
+      initial={{ x: -20, opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      transition={{ duration: 0.4 }}
+    >
       <div className="p-4">
-        <div className="flex items-center gap-2 mb-8">
-          <div className="w-8 h-8 rounded-lg bg-prepai-500 text-white flex items-center justify-center font-bold">
+        <motion.div 
+          className="flex items-center gap-2 mb-8"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-r from-prepai-500 to-prepai-700 text-white flex items-center justify-center font-bold">
             P
           </div>
-          <span className="text-xl font-semibold">PrepAI</span>
-        </div>
+          <span className="text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-prepai-700 to-teal-600">PrepAI</span>
+        </motion.div>
         
         <ScrollArea className="flex-1 h-[calc(100vh-14rem)]">
           <div className="space-y-1 px-2">
@@ -98,19 +110,21 @@ const Sidebar: React.FC<SidebarProps> = ({ onMobileClose }) => {
             isActive={isActive('/settings')}
             onClick={onMobileClose}
           />
-          <Button
-            variant="ghost"
-            className="w-full justify-start px-3 py-2 text-muted-foreground hover:bg-muted hover:text-foreground"
-            onClick={() => {
-              // Handle logout
-            }}
-          >
-            <LogOut className="h-5 w-5 mr-3" />
-            Logout
-          </Button>
+          <motion.div whileHover={{ x: 5 }} whileTap={{ scale: 0.98 }}>
+            <Button
+              variant="ghost"
+              className="w-full justify-start px-3 py-2 text-muted-foreground hover:bg-muted hover:text-foreground"
+              onClick={() => {
+                // Handle logout
+              }}
+            >
+              <LogOut className="h-5 w-5 mr-3" />
+              Logout
+            </Button>
+          </motion.div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
