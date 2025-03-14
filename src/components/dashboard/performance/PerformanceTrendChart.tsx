@@ -1,7 +1,9 @@
 
 import React from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { Line } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
+import { LineChart, CartesianGrid, XAxis, YAxis, Legend } from 'recharts';
 import { motion } from 'framer-motion';
 
 interface PerformanceTrendChartProps {
@@ -13,6 +15,13 @@ interface PerformanceTrendChartProps {
 }
 
 const PerformanceTrendChart: React.FC<PerformanceTrendChartProps> = ({ performanceData }) => {
+  const chartConfig = {
+    score: {
+      label: 'Performance Score',
+      color: '#2070e0',
+    },
+  };
+
   return (
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
@@ -27,16 +36,29 @@ const PerformanceTrendChart: React.FC<PerformanceTrendChartProps> = ({ performan
         </CardHeader>
         <CardContent>
           <div className="h-[300px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <LineChart data={performanceData}>
+            <ChartContainer config={chartConfig}>
+              <LineChart 
+                data={performanceData}
+                margin={{ top: 20, right: 20, bottom: 20, left: 20 }}
+              >
                 <CartesianGrid strokeDasharray="3 3" />
                 <XAxis dataKey="month" />
                 <YAxis />
-                <Tooltip />
-                <Legend />
-                <Line type="monotone" dataKey="score" stroke="#2070e0" strokeWidth={2} />
+                <ChartTooltip
+                  content={<ChartTooltipContent />}
+                  cursor={{ stroke: 'var(--border)' }}
+                />
+                <Legend content={<ChartLegendContent />} />
+                <Line
+                  type="monotone"
+                  dataKey="score"
+                  stroke="var(--color-score, #2070e0)"
+                  strokeWidth={2}
+                  dot={{ strokeWidth: 2, r: 4 }}
+                  activeDot={{ r: 6, strokeWidth: 0 }}
+                />
               </LineChart>
-            </ResponsiveContainer>
+            </ChartContainer>
           </div>
         </CardContent>
       </Card>

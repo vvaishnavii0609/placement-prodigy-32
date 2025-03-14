@@ -1,7 +1,9 @@
 
 import React from 'react';
-import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { Pie, Cell } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { ChartContainer, ChartTooltip, ChartTooltipContent, ChartLegend, ChartLegendContent } from '@/components/ui/chart';
+import { PieChart } from 'recharts';
 
 interface InterviewsByRoleChartProps {
   interviewsData: {
@@ -12,6 +14,15 @@ interface InterviewsByRoleChartProps {
 }
 
 const InterviewsByRoleChart: React.FC<InterviewsByRoleChartProps> = ({ interviewsData }) => {
+  // Create chart config dynamically from the interviewsData
+  const chartConfig = interviewsData.reduce((config, item) => {
+    config[item.name] = {
+      label: item.name,
+      color: item.color,
+    };
+    return config;
+  }, {} as Record<string, { label: string; color: string }>);
+
   return (
     <Card>
       <CardHeader>
@@ -20,25 +31,25 @@ const InterviewsByRoleChart: React.FC<InterviewsByRoleChartProps> = ({ interview
       </CardHeader>
       <CardContent>
         <div className="h-[350px]">
-          <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
+          <ChartContainer config={chartConfig}>
+            <PieChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
               <Pie
                 data={interviewsData}
                 cx="50%"
                 cy="50%"
                 outerRadius={100}
-                fill="#8884d8"
                 dataKey="value"
+                nameKey="name"
                 label={({ name, value }) => `${name}: ${value}`}
               >
                 {interviewsData.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={entry.color} />
                 ))}
               </Pie>
-              <Tooltip />
-              <Legend />
+              <ChartTooltip content={<ChartTooltipContent />} />
+              <ChartLegend content={<ChartLegendContent />} />
             </PieChart>
-          </ResponsiveContainer>
+          </ChartContainer>
         </div>
       </CardContent>
     </Card>

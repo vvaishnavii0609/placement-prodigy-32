@@ -1,7 +1,9 @@
 
 import React from 'react';
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { Line } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
+import { LineChart, CartesianGrid, XAxis, YAxis, Legend } from 'recharts';
 
 interface ComparisonChartProps {
   compareData: {
@@ -12,6 +14,17 @@ interface ComparisonChartProps {
 }
 
 const ComparisonChart: React.FC<ComparisonChartProps> = ({ compareData }) => {
+  const chartConfig = {
+    you: {
+      label: 'You',
+      color: '#2070e0',
+    },
+    average: {
+      label: 'Average',
+      color: '#9b87f5',
+    },
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -20,17 +33,35 @@ const ComparisonChart: React.FC<ComparisonChartProps> = ({ compareData }) => {
       </CardHeader>
       <CardContent>
         <div className="h-[400px]">
-          <ResponsiveContainer width="100%" height="100%">
-            <LineChart data={compareData}>
+          <ChartContainer config={chartConfig}>
+            <LineChart data={compareData} margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis dataKey="name" />
               <YAxis domain={[50, 100]} />
-              <Tooltip />
+              <ChartTooltip
+                content={<ChartTooltipContent />}
+                cursor={{ stroke: 'var(--border)' }}
+              />
               <Legend />
-              <Line type="monotone" dataKey="you" stroke="#2070e0" strokeWidth={2} />
-              <Line type="monotone" dataKey="average" stroke="#9b87f5" strokeWidth={2} strokeDasharray="5 5" />
+              <Line
+                type="monotone"
+                dataKey="you"
+                stroke="var(--color-you, #2070e0)"
+                strokeWidth={2}
+                dot={{ strokeWidth: 2, r: 4 }}
+                activeDot={{ r: 6, strokeWidth: 0 }}
+              />
+              <Line
+                type="monotone"
+                dataKey="average"
+                stroke="var(--color-average, #9b87f5)"
+                strokeWidth={2}
+                strokeDasharray="5 5"
+                dot={{ strokeWidth: 2, r: 4 }}
+                activeDot={{ r: 6, strokeWidth: 0 }}
+              />
             </LineChart>
-          </ResponsiveContainer>
+          </ChartContainer>
         </div>
       </CardContent>
     </Card>

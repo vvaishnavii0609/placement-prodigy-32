@@ -1,7 +1,9 @@
 
 import React from 'react';
-import { PieChart, Pie, Cell, Tooltip, ResponsiveContainer } from 'recharts';
+import { Pie, Cell } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
+import { PieChart } from 'recharts';
 import { motion } from 'framer-motion';
 
 interface SkillsBreakdownChartProps {
@@ -13,6 +15,15 @@ interface SkillsBreakdownChartProps {
 }
 
 const SkillsBreakdownChart: React.FC<SkillsBreakdownChartProps> = ({ skillsData }) => {
+  // Create chart config dynamically from the skillsData
+  const chartConfig = skillsData.reduce((config, item) => {
+    config[item.name] = {
+      label: item.name,
+      color: item.color,
+    };
+    return config;
+  }, {} as Record<string, { label: string; color: string }>);
+
   return (
     <motion.div 
       initial={{ opacity: 0, y: 20 }}
@@ -26,26 +37,26 @@ const SkillsBreakdownChart: React.FC<SkillsBreakdownChartProps> = ({ skillsData 
         </CardHeader>
         <CardContent>
           <div className="h-[300px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
+            <ChartContainer config={chartConfig}>
+              <PieChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
                 <Pie
                   data={skillsData}
                   cx="50%"
                   cy="50%"
                   innerRadius={60}
                   outerRadius={90}
-                  fill="#8884d8"
                   paddingAngle={5}
                   dataKey="value"
+                  nameKey="name"
                   label={({ name, value }) => `${name}: ${value}%`}
                 >
                   {skillsData.map((entry, index) => (
                     <Cell key={`cell-${index}`} fill={entry.color} />
                   ))}
                 </Pie>
-                <Tooltip />
+                <ChartTooltip content={<ChartTooltipContent />} />
               </PieChart>
-            </ResponsiveContainer>
+            </ChartContainer>
           </div>
         </CardContent>
       </Card>

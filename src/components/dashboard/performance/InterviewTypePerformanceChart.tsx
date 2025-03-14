@@ -1,7 +1,9 @@
 
 import React from 'react';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import { Bar } from 'recharts';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/components/ui/chart';
+import { BarChart, CartesianGrid, XAxis, YAxis } from 'recharts';
 
 const interviewTypeData = [
   { name: 'Technical', score: 85 },
@@ -12,6 +14,13 @@ const interviewTypeData = [
 ];
 
 const InterviewTypePerformanceChart: React.FC = () => {
+  const chartConfig = {
+    score: {
+      label: 'Score',
+      color: '#9b87f5',
+    },
+  };
+
   return (
     <Card>
       <CardHeader>
@@ -20,7 +29,7 @@ const InterviewTypePerformanceChart: React.FC = () => {
       </CardHeader>
       <CardContent>
         <div className="h-[350px]">
-          <ResponsiveContainer width="100%" height="100%">
+          <ChartContainer config={chartConfig}>
             <BarChart
               layout="vertical"
               data={interviewTypeData}
@@ -29,10 +38,17 @@ const InterviewTypePerformanceChart: React.FC = () => {
               <CartesianGrid strokeDasharray="3 3" />
               <XAxis type="number" domain={[0, 100]} />
               <YAxis dataKey="name" type="category" />
-              <Tooltip />
-              <Bar dataKey="score" fill="#9b87f5" />
+              <ChartTooltip
+                content={<ChartTooltipContent />}
+                cursor={{ fill: 'var(--muted)' }}
+              />
+              <Bar
+                dataKey="score"
+                fill="var(--color-score, #9b87f5)"
+                radius={[4, 4, 4, 4]}
+              />
             </BarChart>
-          </ResponsiveContainer>
+          </ChartContainer>
         </div>
       </CardContent>
     </Card>
