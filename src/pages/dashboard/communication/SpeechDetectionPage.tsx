@@ -180,7 +180,7 @@ const SpeechDetectionPage = () => {
         </TabsContent>
       </Tabs>
       
-      <style jsx global>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         @keyframes equalizer {
           0% {
             height: 5px;
@@ -189,7 +189,7 @@ const SpeechDetectionPage = () => {
             height: var(--value);
           }
         }
-      `}</style>
+      `}} />
     </div>
   );
 };
