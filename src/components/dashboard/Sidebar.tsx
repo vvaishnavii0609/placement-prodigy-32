@@ -11,6 +11,7 @@ import {
   Settings,
   LogOut,
   ChevronRight,
+  FileText,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import { Button } from '@/components/ui/button';
@@ -64,6 +65,7 @@ const Sidebar: React.FC<SidebarProps> = ({ onMobileClose }) => {
     { to: '/dashboard/journey', icon: <Route className="h-5 w-5" />, label: 'Personalized Journey' },
     { to: '/dashboard/reminders', icon: <Clock className="h-5 w-5" />, label: 'Reminders' },
     { to: '/dashboard/roles', icon: <BriefcaseBusiness className="h-5 w-5" />, label: 'Requested Roles' },
+    { to: '/dashboard/resume-analyzer', icon: <FileText className="h-5 w-5" />, label: 'Resume Analyzer' },
   ];
   
   return (

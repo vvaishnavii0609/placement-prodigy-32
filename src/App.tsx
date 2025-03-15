@@ -18,6 +18,7 @@ import MockInterviewPage from "./pages/dashboard/communication/MockInterviewPage
 import InterviewSetupPage from "./pages/interview/InterviewSetupPage";
 import InterviewSessionPage from "./pages/interview/InterviewSessionPage";
 import InterviewResultsPage from "./pages/interview/InterviewResultsPage";
+import ResumeAnalyzerPage from "./pages/dashboard/ResumeAnalyzerPage";
 
 const queryClient = new QueryClient();
 
@@ -38,6 +39,7 @@ const App = () => (
           <Route path="/dashboard/communication/body-posture" element={<BodyPosturePage />} />
           <Route path="/dashboard/communication/speech" element={<SpeechDetectionPage />} />
           <Route path="/dashboard/communication/mock-interview" element={<MockInterviewPage />} />
+          <Route path="/dashboard/resume-analyzer" element={<ResumeAnalyzerPage />} />
           
           {/* New Interview Routes */}
           <Route path="/interview/setup/:jobRole" element={<InterviewSetupPage />} />
