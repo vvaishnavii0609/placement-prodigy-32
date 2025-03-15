@@ -33,6 +33,9 @@ const NavigationButtons: React.FC = () => {
           <DropdownMenuItem onClick={() => navigate('/dashboard/communication/speech')}>
             Speech Detection
           </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => navigate('/dashboard/communication/mock-interview')}>
+            Mock Interview Simulator
+          </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
       
